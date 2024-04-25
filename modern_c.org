@@ -1,0 +1,16 @@
+#+title: Modern C
+#+description: Jens Gustedt
+
+#+BEGIN_SRC c
+// Description:
+#include <stdio.h>
+
+int main(void) {
+    // Template
+    return 0;
+}
+#+END_SRC
+
+* Encounter
+* Acquaintance
+* Cognition
