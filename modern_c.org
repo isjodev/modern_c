@@ -11,7 +11,109 @@ int main(void) {
 }
 #+END_SRC
 
+#+begin_src c
+#+end_src
+
 * Encounter
+** Getting Started
+*** Takeaway A: C and C++ are different: don't mix theme, and don't mix them up.
+*** Takeaway B: Don't Panic.
+*** Takeaway 0.1.1.1 C is an imperative programming language.
+*** Takeaway 0.1.2.1 C is a compiled programming langauge.
+*** Takeaway 0.1.2.2 A correct C programing is portable between different platforms.
+
+#+begin_src sh
+$ c99 -Wall -o getting-started getting-started.c -lm
+# The compiler should do its job without complaining and output an executable file
+# called getting started in your current directory.
+#+end_src
+- c99 is the compiler.
+- -Wall tells it to warn us about anything it finds unusual.
+- -o getting-started tells it to store the compiler output in a file named
+  getting-started
+- getting-started.c names the source file, the file that contains the C code we
+  have written. Note that the .c extension at the end of the filename refers to
+  the C programming langauge.
+- lm tells it to add some standard mathematical functions if necessary; we
+  will need those later on.
+*** Takeaway 0.1.2.3: A C program should compile cleanly without warnings.
+*** Summary
+- C is designed to give computers orders.
+- C must be compiled to be executed. The compiler provides the translation between
+  the language we understand and the specific needs of the particular platform.
+- C gives a level of abstraction that provides portability. One C program can
+  be used on many difference computer architectures.
+- The C compiler is there to help you.
+
+
+
+** The principal structure of a program
+- This section covers:
+  - C grammar
+  - Declaring identifiers
+  - Defining objects
+  - Instructing the compiler with statements.
+*** Takeaway 0.2.1.1 Punctuation characters can be used with serveral different meanings
+*** Takeaway 0.2.2.1 All identifiers in a program have to be declared.
+*** Takeaway 0.2.2.2 Identifiers may have several consistent delcarations.
+*** Takeaway 0.2.2.3 Declarations are bound to the scope in which they appear.
+*** Takeaway 0.2.3.1 Declarations specify identifiers, whereas definitions specify objects.
+*** Takeaway 0.2.3.2 An object id defined at the same time it is initialized.
+*** Takeaway 0.2.3.3 Missing elements in initializers default to 0.
+*** Takeaway 0.2.3.4 For an array with n elements, the first element has index 0, and the last index n-1
+*** Takeaway 0.2.3.5 Each obejct or function must have exactly one definition.
+*** Takeaway 0.2.4.1 Domain iterations should be coded with a for statement.
+*** Takeaway 0.2.4.2 The loop variable should be defined in the initial part of a for.
+*** Summary
+- C distinguishes lexical structure, the grammatical structure, and the semantics
+  of programs.
+- All identifiers must be declared such that we know the properties of the
+  concept they represent.
+- All objects and functions must be defined; that is, we must specify how and
+  where they come to be.
+- Statements indicate how things are going to be done: iterations repeat
+  variations of certain tasks, function calls delegate a task to a function, and
+  function returns go back to where we came from.
+
+
+
 * Acquaintance
+# "Having worked through these sections, you should be able to write short code
+# for every day needs; not extremely sophisticated, but useful and portable."
+*** Style Considerations
+1. We bind type modifiers and qualifiers to the left: We want to separate
+   identifiers visually from their type.
+#+begin_src c
+char* name;
+char const* const path_name;
+#+end_src
+2. We do not use continued declarations: They obfuscate the bindings of type
+   declarators.
+#+begin_src c
+// No.
+unsigned const* const a, b;
+#+end_src
+3. We use array notation for pointer parameters: We do so wherever these assume
+   that the pointer can't be null.
+#+begin_src c
+/* These emphasize that the arguments cannot be null. */
+size_t strlen(char const string[static 1]);
+int main(int argc, char* argv[argc+1]);
+/* Compatible declarations for the same functions. */
+size_t strlen(const char* string);
+int main(int argc, char **argv);
+#+end_src
+4. We use function notation for function pointer parameters: We do so whenever
+   we know that a function pointer can't be null.
+#+begin_src c
+/* This emphasizes that the handler argument cannot be null.*/
+int atexit(void handler(void));
+/* Compatible declaration for the same function. */
+int atexit(void (*handler)(void));
+#+end_src
+
+
 * Cognition
-* Experience
+
+* Experience 
+
