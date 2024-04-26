@@ -1,0 +1,11 @@
+#+title: README
+#+description: We ported the coffee machine to rust.
+
+* Modern C
+- Notes, code, solutions.
+
+* Submitting A Pull Request
+- A live code review meeting where you explain your code,
+  complete with diagrams and flow charts.
+- Commit history must contain individual commits for each comment.
+- Leave typos so you can fix them in another PR.
