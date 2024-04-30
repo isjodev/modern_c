@@ -11,23 +11,26 @@
 #include <stdlib.h>
 #include <time.h>
 
-// User defined headers.
+// User defined headers?
 // merge_sort.h
 // quick_sort.h
 
 // Number of elements in array.
-#define LEN 100
+#define LEN 10
 
 // Function prototypes.
 int *init_int_array(int len);
 void fill_int_array(int *array, int len);
 void print_int_array(int *array, int len);
+void swap(int *, int *);
+void partition(void);
+void quick_sort(void);
+void merge_sort(void);
 
 int main(void) {
   int *array = init_int_array(LEN);
   fill_int_array(array, LEN);
-
-  // Sort
+  // int n = sizeof(array) / sizeof(array[0]);
 
   // Print
   print_int_array(array, LEN);
@@ -53,3 +56,30 @@ void print_int_array(int *array, int len) {
     printf("%d ", *(array + i));
   }
 }
+
+void swap(int *a, int *b) {
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+// Input: Array, start, end
+void partition(void) {
+  // pivot = array[end]
+  // pivot_idx = start
+  // loop idx from start to end
+  //   if array[index] <= pivot_value
+  //     swap(array[index], array[pivot_idx])
+  //     pivot_idx++
+  // return pivot_idx - 1
+}
+
+void quick_sort(void) {
+  // if start >= end
+  //   return
+  // pivot_idx = partition(array, start, end)
+  // quick_sort(array, start, pivot_idx - 1)
+  // quick_sort(aray, pivot_idx + 1, end)
+}
+
+void merge_sort(void) {}
