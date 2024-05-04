@@ -21,7 +21,6 @@ int main(void) {
 *** Takeaway 0.1.1.1 C is an imperative programming language.
 *** Takeaway 0.1.2.1 C is a compiled programming langauge.
 *** Takeaway 0.1.2.2 A correct C programing is portable between different platforms.
-
 #+begin_src sh
 $ c99 -Wall -o getting-started getting-started.c -lm
 # The compiler should do its job without complaining and output an executable file
