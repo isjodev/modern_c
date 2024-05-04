@@ -9,18 +9,13 @@
  * TODO: Implement merge_sort().  */
 
 // Preprocessor.
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-// User defined headers?
-// merge_sort.h
-// quick_sort.h
+#include <math.h> 
 
 // Number of elements in array.
-#define LEN 5
+#define LEN 10
 
 // Function prototypes.
 int *init_int_array(int len);
@@ -29,20 +24,38 @@ void print_int_array(int *array, int len);
 void swap(int *, int *);
 int partition(int *array, int start, int end);
 void quick_sort(int *array, int start, int end);
+void merge_sort(int *, int, int); 
+void merge(int*, int, int, int); 
+int get_midpoint(int, int); 
 
 int main(void) {
+  // Seed random.
+  srand(time(NULL));
+
   // Initialize and fill integer array with LEN values.
-  int *array = init_int_array(LEN);
-  fill_int_array(array, LEN);
+  int *array1 = init_int_array(LEN);
+  int *array2 = init_int_array(LEN); 
+  fill_int_array(array1, LEN);
+  fill_int_array(array2, LEN);
 
   // Print Array
-  print_int_array(array, LEN);
+  printf("Array1:\n"); 
+  print_int_array(array1, LEN);
+  printf("Array2:\n"); 
+  print_int_array(array2, LEN);
 
   // Sort Array
-  quick_sort(array, 0, LEN - 1);
+  quick_sort(array1, 0, LEN - 1);
+  merge_sort(array2, 0, LEN - 1); 
 
   // Print Array
-  print_int_array(array, LEN);
+  printf("Array1:\n"); 
+  print_int_array(array1, LEN);
+  printf("Array2:\n"); 
+  print_int_array(array2, LEN);
+
+  free(array1); 
+  free(array2); 
   return 0;
 }
 
@@ -56,8 +69,6 @@ int *init_int_array(int len) {
 
 /* fill_int_array randomly generates integers and populates array. */
 void fill_int_array(int *array, int len) {
-  // Seed random.
-  srand(time(NULL));
 
   // Loop over array.
   for (size_t i = 0; i < len; i++) {
@@ -120,4 +131,65 @@ void quick_sort(int *array, int start, int end) {
     quick_sort(array, start, pivot_idx - 1);
     quick_sort(array, pivot_idx + 1, end);
   }
+}
+
+int get_midpoint(int start, int end) {
+  return floor(start + end) / 2; 
+}
+
+void merge(int* array, int start, int mid, int end)  {
+  int len_left = mid - start + 1; 
+  int len_right = end - mid; 
+
+  int* left_subarray = malloc(sizeof(int) * len_left); 
+  int* right_subarray = malloc(sizeof(int)* len_right); 
+
+  for (int i = 0; i < len_left; i++) {
+    left_subarray[i] = array[start + i]; 
+  }
+
+  for (int j = 0; j < len_right; j++) {
+    right_subarray[j] = array[mid + j + 1]; 
+  }
+
+  int i = 0; 
+  int j = 0; 
+  int k = start; 
+
+  while (i < len_left && j < len_right) {
+    if (left_subarray[i] <= right_subarray[j]) {
+      array[k] = left_subarray[i]; 
+      i++; 
+    } else {
+      array[k] = right_subarray[j]; 
+      j++; 
+    }
+    k++; 
+  }
+
+  while (i < len_left) {
+    array[k] = left_subarray[i]; 
+    i++; 
+    k++; 
+  }
+
+  while (j < len_right) {
+    array[k] = right_subarray[j]; 
+    j++; 
+    k++; 
+  }
+
+  free(left_subarray); 
+  free(right_subarray); 
+}
+
+void merge_sort(int* array, int start,  int end) {
+  if (start >= end) {
+    return; 
+  }
+
+  int mid = get_midpoint(start, end); 
+  merge_sort(array, start, mid); 
+  merge_sort(array, mid + 1, end); 
+  merge(array, start, mid, end); 
 }
